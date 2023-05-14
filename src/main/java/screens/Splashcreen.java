@@ -9,7 +9,7 @@ public class Splashcreen extends BaseScreen{
     public Splashcreen(AppiumDriver<AndroidElement> driver) {
         super(driver);
     }
-    @FindBy(xpath = "//*[resource-id='com.sheygam.contactapp:id/version_text']")
+    @FindBy(id ="com.sheygam.contactapp:id/version_text")
     AndroidElement versionTextView;
 
     @FindBy(xpath = "//*[resource-id='com.sheygam.contactapp:id/title_text']")
@@ -17,5 +17,10 @@ public class Splashcreen extends BaseScreen{
 
     public String getCurrentVersion(){
         return versionTextView.getText();
+    }
+
+    public AutenticationScreen checkCurrentVersion(String version){
+        isShouldHave(versionTextView,version,8);
+        return new AutenticationScreen(driver);
     }
 }
