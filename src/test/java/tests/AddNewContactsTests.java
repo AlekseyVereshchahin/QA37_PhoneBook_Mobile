@@ -53,6 +53,7 @@ public class AddNewContactsTests extends AppiumConfig {
                 .submitContactFormNegative()
                 .isErrorContainsText("{name=must not be blank}");
 
+
     }
 
     @Test
@@ -69,6 +70,7 @@ public class AddNewContactsTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactFormNegative()
                 .isErrorContainsText("{lastName=must not be blank}");
+
 
     }
 
@@ -87,6 +89,7 @@ public class AddNewContactsTests extends AppiumConfig {
                 .submitContactFormNegative()
                 .isErrorContainsText("{email=must not be blank}");
 
+
     }
 
     @Test
@@ -104,6 +107,7 @@ public class AddNewContactsTests extends AppiumConfig {
                 .submitContactFormNegative()
                 .isErrorContainsText("{phone=Phone number must contain only digits! And length min 10, max 15!}");
 
+
     }
 
     @Test
@@ -120,6 +124,7 @@ public class AddNewContactsTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactFormNegative()
                 .isErrorContainsText("{address=must not be blank}");
+
 
     }
 
