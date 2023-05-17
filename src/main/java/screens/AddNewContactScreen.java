@@ -9,29 +9,47 @@ public class AddNewContactScreen extends BaseScreen{
     public AddNewContactScreen(AppiumDriver<AndroidElement> driver) {
         super(driver);
     }
-
-    @FindBy(id = "com.sheygam.contactapp:id/inputName")
+    @FindBy(id="com.sheygam.contactapp:id/inputName")
     AndroidElement nameEditText;
-
     @FindBy(id = "com.sheygam.contactapp:id/inputLastName")
     AndroidElement lastNameEditText;
-
     @FindBy(id = "com.sheygam.contactapp:id/inputEmail")
     AndroidElement emailEditText;
-
     @FindBy(id = "com.sheygam.contactapp:id/inputPhone")
     AndroidElement phoneEditText;
-
     @FindBy(id = "com.sheygam.contactapp:id/inputAddress")
     AndroidElement addressEditText;
-
     @FindBy(id = "com.sheygam.contactapp:id/inputDesc")
     AndroidElement descriptionEditText;
-
     @FindBy(xpath = "//*[@text='CREATE']")
-    AndroidElement createBtn;
+    AndroidElement createButton;
 
     public AddNewContactScreen fillContactForm(Contact contact){
+        should(nameEditText,20);
+        type(nameEditText,contact.getName());
+        type(lastNameEditText, contact.getLastName());
+        type(emailEditText, contact.getEmail());
+        type(phoneEditText, contact.getPhone());
+        type(addressEditText, contact.getAddress());
+        type(descriptionEditText,contact.getDescription());
+
+        return this;
+    }
+
+    public ContactListScreen submitContactForm(){
+        createButton.click();
+        return new ContactListScreen(driver);
+    }
+    public AddNewContactScreen submitContactFormNegative(){
+        createButton.click();
+        return this;
+    }
+    public AddNewContactScreen isErrorContainsText(String text){
+        checkAlertText(text);
+        return this;
+    }
+
+    public ContactListScreen createContact(Contact contact){
         should(nameEditText,10);
         type(nameEditText,contact.getName());
         type(lastNameEditText, contact.getLastName());
@@ -39,21 +57,7 @@ public class AddNewContactScreen extends BaseScreen{
         type(phoneEditText, contact.getPhone());
         type(addressEditText, contact.getAddress());
         type(descriptionEditText,contact.getDescription());
-        return this;
-    }
-
-    public AddNewContactScreen submitContactFormNegative(){
-        createBtn.click();
-        return this;
-    }
-
-    public ContactListScreen submitContactForm(){
-        createBtn.click();
+        createButton.click();
         return new ContactListScreen(driver);
-    }
-
-    public AddNewContactScreen isErrorContainsText(String text){
-        checkAlertText(text);
-        return this;
     }
 }

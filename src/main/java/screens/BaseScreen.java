@@ -9,17 +9,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.rmi.server.ExportException;
+
 public class BaseScreen {
-    AppiumDriver<AndroidElement> driver;
+
+    AppiumDriver<AndroidElement>driver;
 
     public BaseScreen(AppiumDriver<AndroidElement> driver) {
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver),this);
     }
 
-    public void type(AndroidElement element,String text){
+    public void type(AndroidElement element, String text){
         if(text!=null){
-            element.clear();
+            element.click();
             element.clear();
             element.sendKeys(text);
         }
@@ -33,14 +36,13 @@ public class BaseScreen {
     public void should(AndroidElement element, int time){
         new WebDriverWait(driver,time).until(ExpectedConditions.visibilityOf(element));
     }
-
     public void checkAlertText(String text){
-        Alert alert= new WebDriverWait(driver,10)
+        Alert alert = new WebDriverWait(driver,10)
                 .until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert();
         System.out.println(alert.getText());
         Assert.assertTrue(alert.getText().contains(text));
         alert.accept();
-    }
 
+    }
 }
