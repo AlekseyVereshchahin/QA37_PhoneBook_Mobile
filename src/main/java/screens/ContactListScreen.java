@@ -2,7 +2,6 @@ package screens;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
@@ -26,8 +25,9 @@ public class ContactListScreen extends BaseScreen{
 
     public ContactListScreen isContactAddedByName(String name,String lastName){
         // List<AndroidElement> list =  driver.findElements(By.xpath(""));
-        isShouldHave(activityTextView,"Contact list",5);
+        isShouldHave(activityTextView,"Contact list",10);
         System.out.println("size of list" +contactNameList.size());
+
         boolean isPresent=false;
 
         for (AndroidElement el:contactNameList) {
@@ -40,16 +40,11 @@ public class ContactListScreen extends BaseScreen{
         return this;
     }
 
-//    public AddNewContactScreen openContactForm(){
-//        if(activityTextView.getText().equals("Contact list"))
-//            plusButton.click();
-//        return new AddNewContactScreen(driver);
-//    }
 
     public AddNewContactScreen openContactForm(){
-        if(activityTextView.getText().equals("Contact list")){
+        isShouldHave(activityTextView,"Contact list",20);
+       if(activityTextView.getText().equals("Contact list"))
             plusButton.click();
-        }
         return new AddNewContactScreen(driver);
     }
 

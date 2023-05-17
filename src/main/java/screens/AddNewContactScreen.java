@@ -9,6 +9,8 @@ public class AddNewContactScreen extends BaseScreen{
     public AddNewContactScreen(AppiumDriver<AndroidElement> driver) {
         super(driver);
     }
+
+
     @FindBy(id="com.sheygam.contactapp:id/inputName")
     AndroidElement nameEditText;
     @FindBy(id = "com.sheygam.contactapp:id/inputLastName")
@@ -50,7 +52,7 @@ public class AddNewContactScreen extends BaseScreen{
     }
 
     public ContactListScreen createContact(Contact contact){
-        should(nameEditText,10);
+        should(nameEditText,20);
         type(nameEditText,contact.getName());
         type(lastNameEditText, contact.getLastName());
         type(emailEditText, contact.getEmail());
