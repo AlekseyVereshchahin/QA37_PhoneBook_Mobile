@@ -16,7 +16,8 @@ public class AddNewContactsTests extends AppiumConfig {
     public void preCondition(){
         new AuthenticationScreen(driver)
                 .fillLoginRegistrationForm(Auth.builder().email("pop@gmail.com").password("Ppop12345$").build())
-                .submitLogin();
+                .submitLogin()
+                .isActivityTitleDisplayed("Contact list");
 
     }
 
@@ -52,8 +53,6 @@ public class AddNewContactsTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactFormNegative()
                 .isErrorContainsText("{name=must not be blank}");
-
-
     }
 
     @Test
@@ -70,7 +69,6 @@ public class AddNewContactsTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactFormNegative()
                 .isErrorContainsText("{lastName=must not be blank}");
-
 
     }
 
@@ -89,7 +87,6 @@ public class AddNewContactsTests extends AppiumConfig {
                 .submitContactFormNegative()
                 .isErrorContainsText("{email=must not be blank}");
 
-
     }
 
     @Test
@@ -107,7 +104,6 @@ public class AddNewContactsTests extends AppiumConfig {
                 .submitContactFormNegative()
                 .isErrorContainsText("{phone=Phone number must contain only digits! And length min 10, max 15!}");
 
-
     }
 
     @Test
@@ -124,7 +120,6 @@ public class AddNewContactsTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactFormNegative()
                 .isErrorContainsText("{address=must not be blank}");
-
 
     }
 
