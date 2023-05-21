@@ -14,7 +14,6 @@ public class DeleteContactTests extends AppiumConfig {
                 .fillLoginRegistrationForm(Auth.builder().email("pop@gmail.com").password("Ppop12345$").build())
                 .submitLogin()
                 .isActivityTitleDisplayed("Contact list");
-
     }
     @Test
     public void deleteFirstContact(){
@@ -28,8 +27,5 @@ public class DeleteContactTests extends AppiumConfig {
         new ContactListScreen(driver)
                 .deleteAllContacts()
                 .isListEmpty();
-
     }
-
-
 }

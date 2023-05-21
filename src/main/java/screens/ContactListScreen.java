@@ -46,7 +46,7 @@ public class ContactListScreen extends BaseScreen {
     }
 
     public ContactListScreen isListEmpty() {
-        Assert.assertEquals(countAfter, 0);
+        Assert.assertEquals(contactList.size(), 0);
         return this;
     }
 
@@ -55,12 +55,13 @@ public class ContactListScreen extends BaseScreen {
         isActivityTitleDisplayed("Contact list");
         countBefore = contactList.size();
         System.out.println(countBefore);
+        if(contactList.size()<3) {
+            create3contactsForDeletion();
+            }
         AndroidElement first = contactList.get(0);
         Rectangle rectangle = first.getRect();
 
         int xFrom = rectangle.getX() + rectangle.getWidth() / 8;
-
-
         int yFrom = rectangle.getY() + rectangle.getHeight() / 2;
         // int xTo=rectangle.getX()+(rectangle.getWidth()/8)*7;
         int xto = rectangle.getWidth() - xFrom;
@@ -81,6 +82,35 @@ public class ContactListScreen extends BaseScreen {
 
     public ContactListScreen deleteAllContacts() {
         countBefore = contactList.size();
+        if (contactList.size() < 3) {
+            create3contactsForDeletion();
+        }
+        while (contactList.size() > 0) {
+                isActivityTitleDisplayed("Contact list");
+                AndroidElement first = contactList.get(0);
+                Rectangle rectangle = first.getRect();
+
+                int xFrom = rectangle.getX() + rectangle.getWidth() / 8;
+                int yFrom = rectangle.getY() + rectangle.getHeight() / 2;
+                // int xTo=rectangle.getX()+(rectangle.getWidth()/8)*7;
+                int xto = rectangle.getWidth() - xFrom;
+                int yTo = yFrom;
+
+                TouchAction<?> touchAction = new TouchAction<>(driver);
+                touchAction.longPress(PointOption.point(xFrom, yFrom))
+                        .moveTo(PointOption.point(xto, yTo))
+                        .release().perform();
+
+                should(yesButton, 8);
+                yesButton.click();
+                System.out.println(contactList.size());
+//                shouldLessOne(contactList, countBefore);
+            }
+        return this;
+    }
+
+    public ContactListScreen create3contactsForDeletion(){
+        countBefore = contactList.size();
         if (countBefore < 3) {
             while (countBefore <3) {
                 int i = new Random().nextInt(1000) + 1000;
@@ -99,9 +129,6 @@ public class ContactListScreen extends BaseScreen {
                         .isContactAddedByName(contact.getName(), contact.getLastName());
                 countBefore = contactList.size();
             }
-        }
-        while (countBefore > 0) {
-            deleteFirstContact();
         }
         return this;
     }
